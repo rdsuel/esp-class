@@ -4,7 +4,7 @@
 
 #define DHTPIN  4         // what pin we're connected to
 #define DHTTYPE DHT22     // DHT 22  (AM2302)
-DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor for normal 16mhz Arduino
+DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor
 
 //Variables
 float humidity;
