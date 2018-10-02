@@ -3,6 +3,16 @@
 #include <WiFiUdp.h>
 #include "SSD1306Wire.h"
 #include "OLEDDisplayUi.h"
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+
+#define DHTPIN  4         // what pin we're connected to
+#define DHTTYPE DHT22     // DHT 22  (AM2302)
+DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor
+
+//Variables
+float humidity;
+float temperature;
 
 const unsigned char activeSymbol[] PROGMEM = {
     B00000000,
@@ -26,20 +36,20 @@ const unsigned char inactiveSymbol[] PROGMEM = {
     B00000000
 };
 
-const char* ssid     = "HBL";
-const char* password = "C0A80400C0A804FF";
+const char* ssid     = "SSID";
+const char* password = "PASSWORD";
 
 const int timeZone = 4;
 
 // local port to listen for UDP packets
 unsigned int localPort = 2390;
 // time.nist.gov NTP server address
-IPAddress timeServerIP; 
+IPAddress timeServerIP;
 const char* ntpServerName = "time.nist.gov";
 // NTP time stamp is in the first 48 bytes of the message
-const int NTP_PACKET_SIZE = 48; 
+const int NTP_PACKET_SIZE = 48;
 //buffer to hold incoming and outgoing packets
-byte packetBuffer[ NTP_PACKET_SIZE]; 
+byte packetBuffer[ NTP_PACKET_SIZE];
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP udp;
 // Initialize the OLED display using Wire library
@@ -120,12 +130,26 @@ void digitalClockFrame(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t 
   display->drawString(clockCenterX + x , clockCenterY + y, timenow );
 }
 
+void temperatureFrame(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y) {
+  String temperatureString = String(String(temperature) + " F");
+  display->setTextAlignment(TEXT_ALIGN_CENTER);
+  display->setFont(ArialMT_Plain_24);
+  display->drawString(clockCenterX + x , clockCenterY + y, temperatureString );
+}
+
+void humidityFrame(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y) {
+  String humidityString = String(String(humidity) + " %");
+  display->setTextAlignment(TEXT_ALIGN_CENTER);
+  display->setFont(ArialMT_Plain_24);
+  display->drawString(clockCenterX + x , clockCenterY + y, humidityString );
+}
+
 // This array keeps function pointers to all frames
 // frames are the single views that slide in
-FrameCallback frames[] = { analogClockFrame, digitalClockFrame };
+FrameCallback frames[] = { analogClockFrame, digitalClockFrame, temperatureFrame, humidityFrame };
 
 // how many frames are there?
-int frameCount = 2;
+int frameCount = 4;
 
 // Overlays are statically drawn on top of a frame eg. a clock
 OverlayCallback overlays[] = { clockOverlay };
@@ -157,6 +181,8 @@ void sendNTPpacket(IPAddress& address) {
 void setup() {
   Serial.begin(115200);
   delay(10);
+
+  dht.begin();
 
   Serial.println("WiFi connecting ");
   /* Explicitly set the ESP8266 to be a WiFi-client, otherwise, it by default,
@@ -202,7 +228,9 @@ void setup() {
   // Once a minute, ping the NTP server
   WiFi.hostByName(ntpServerName, timeServerIP);
   // send an NTP packet to a time server
-  sendNTPpacket(timeServerIP); 
+  sendNTPpacket(timeServerIP);
+  humidity = dht.readHumidity();
+  temperature = dht.readTemperature() * 9.0f/5.0f + 32.0;
 }
 
 void loop() {
@@ -243,7 +271,7 @@ void loop() {
       // Once a minute, ping the NTP server
       WiFi.hostByName(ntpServerName, timeServerIP);
       // send an NTP packet to a time server
-      sendNTPpacket(timeServerIP); 
+      sendNTPpacket(timeServerIP);
       // Now sort out the time
       second = 0;
       minute++;
@@ -252,6 +280,14 @@ void loop() {
         minute = 0;
         hour = (hour + 1) % 24;
       }
+    }
+    else if (second == 30)
+    {
+      humidity = dht.readHumidity();
+    }
+    else if (second == 45)
+    {
+      temperature = dht.readTemperature() * 9.0f/5.0f + 32.0;
     }
   }
 }

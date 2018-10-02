@@ -2,20 +2,20 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
-const char* ssid     = "HBL";
-const char* password = "C0A80400C0A804FF";
+const char* ssid     = "SSID";
+const char* password = "PASSWORD";
 
 const int timeZone = 4;
 
 // local port to listen for UDP packets
 unsigned int localPort = 2390;
 // time.nist.gov NTP server address
-IPAddress timeServerIP; 
+IPAddress timeServerIP;
 const char* ntpServerName = "time.nist.gov";
 // NTP time stamp is in the first 48 bytes of the message
-const int NTP_PACKET_SIZE = 48; 
+const int NTP_PACKET_SIZE = 48;
 //buffer to hold incoming and outgoing packets
-byte packetBuffer[ NTP_PACKET_SIZE]; 
+byte packetBuffer[ NTP_PACKET_SIZE];
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP udp;
 
@@ -87,7 +87,7 @@ void loop() {
   if (second < 10) {
     Serial.print('0');
   }
-  Serial.println(second); 
+  Serial.println(second);
   // wait one second
   delay(1000);
   // Update the time

@@ -38,8 +38,8 @@ const unsigned char inactiveSymbol[] PROGMEM = {
     B00000000
 };
 
-const char* ssid     = "HBL";
-const char* password = "C0A80400C0A804FF";
+const char* ssid     = "SSID";
+const char* password = "PASSWORD";
 
 // Initialize the OLED display using Wire library
 SSD1306Wire  display(0x3c, 3, 1);
@@ -130,9 +130,9 @@ void setup() {
 
 void loop() {
   frame++;
-  
+
   int remainingTimeBudget = ui.update();
-  if (remainingTimeBudget > 0) {    
+  if (remainingTimeBudget > 0) {
     if(frame>=30)
     {
       frame=0;
