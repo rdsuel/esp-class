@@ -7,7 +7,7 @@
 // Adafruit IO
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883
-#define AIO_USERNAME    "ADAFRUIT USERNAME"
+#define AIO_USERNAME    "ADAFRUIT USER"
 #define AIO_KEY         "ADAFRUIT KEY"
 
 // Create an ESP8266 WiFiClient class to connect to the MQTT server.
@@ -20,13 +20,13 @@ Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO
 Adafruit_MQTT_Publish temperatureFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temperature");
 Adafruit_MQTT_Publish humidityFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/humidity");
 
-#define DHTPIN  4         // what pin we're connected to
+#define DHTPIN  0         // what pin we're connected to
 #define DHTTYPE DHT22     // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor
 
 // WiFi parameters
-#define WLAN_SSID       "SSID"
-#define WLAN_PASS       "PASSWORD"
+#define WLAN_SSID       "iot_class"
+#define WLAN_PASS       "password"
 
 float temperature;
 float humidity;
@@ -107,7 +107,8 @@ void loop() {
   }
   else
   {
-    Serial.println(F("Temperature published!"));
+    Serial.print(temperature);
+    Serial.println(F(" F published!"));
   }
  
   if (! humidityFeed.publish(humidity))
@@ -116,7 +117,8 @@ void loop() {
   }
   else
   {
-    Serial.println(F("Humidity published!"));
+    Serial.print(humidity);
+    Serial.println(F("% published!"));
   }
   delay(10000);
 }
