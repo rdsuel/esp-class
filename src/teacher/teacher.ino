@@ -62,6 +62,7 @@ void setup()
   // Exercise 3: OLED display
   display.init();
   display.clear();
+  display.flipScreenVertically();
   display.setTextAlignment(TEXT_ALIGN_LEFT);
   display.setFont(ArialMT_Plain_10);
   display.drawString(0, 0, "Hello world");
@@ -89,19 +90,17 @@ void loop()
   display.setTextAlignment(TEXT_ALIGN_CENTER);
   display.setFont(ArialMT_Plain_24);
   display.drawString(63, 0, timeClient.getFormattedTime());
-//  display.display();
 
   // Exercise 4: Temp/Humidity Sensor
   humidity = dht.readHumidity();
-  temperature = dht.readTemperature();
-  Serial.print("Humidity: ");
-  Serial.print(humidity);
-  Serial.print(" %, Temp: ");
-  Serial.print(temperature);
-  Serial.println(" Celsius");
-  display.setTextAlignment(TEXT_ALIGN_LEFT);
+  temperature = dht.readTemperature(true);
+  // https://www.arduino.cc/en/Reference.StringConstructor
+  String tempString = String(temperature, 1);
+  String humidityString = String(humidity, 1);
+  String sensorString = String(tempString + "F   " + humidityString + "%");
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
   display.setFont(ArialMT_Plain_16);
-  display.drawString(0, 32, "100 F");
-  display.drawString(64, 32, "60%");
+  display.drawString(63, 31, sensorString);
+  Serial.println(sensorString);
   display.display();
 }
