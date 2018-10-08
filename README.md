@@ -1,7 +1,7 @@
 # IoT with the ESP8266
 
 
-## Exercise 1:
+## Exercise 1 - 
 ### Scheduler
 The following code provides a basic architecture for running periodic "tasks".  In this example, the built-in ESP8266 LED toggles from a callback function (task) every 500 ms.
 ```c
@@ -55,11 +55,131 @@ void loop()
 }
 ```
 
+
+## Exercise 2:
+### Connecting to WiFi.
+First, you need to pull in the ESP8266 Wifi library.
+```c
+#include <ESP8266WiFi.h>
+```
+
+Next, add the `ssid` and `password` variables that we will use to connect to the network. Change to the correct values.
+```c
+const char* ssid     = "SSID";
+const char* password = "PASSWORD";
+```
+
+Finally, in setup, connect to the network ...
+```c
+  Serial.begin(115200);
+  delay(10);
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+```
+
+
+## Exercise 3:
+### Driving an OLED display using NTP time
+The following includes will be needed to drive the display, and to read the current time from the online NTP (network time protocol) server.
+```c
+#include <Wire.h>
+#include "SSD1306Wire.h"
+#include <NTPClient.h>
+#include <WiFiUdp.h>
+```
+
+The following variables will support an I2C display connected to pins GPIO5 (SDA) and GPIO5 (SCK) with an address of 0x3C.
+```c
+SSD1306Wire  display(0x3c, 5, 4);
+```
+
+These variables will connect to the `time.nist.gov` server and offset the time for Eastern Daylight Time (Louisville, KY).
+```c
+int utc = -4; // Eastern daylight time
+WiFiUDP udp;
+NTPClient timeClient(udp, "time.nist.gov", utc * 3600, 60000);
+```
+
+Next we need to initialize the display and the NTP client in `setup()`.  This snippet initializes the display object we created, and will print "Hello world" to the display in 24 point Arial font.
+```c
+  display.init();
+  display.clear();
+  display.flipScreenVertically();
+  display.setTextAlignment(TEXT_ALIGN_LEFT);
+  display.setFont(ArialMT_Plain_24);
+  display.drawString(0, 0, "Hello world");
+  display.display();
+```
+
+This snippit will start the NTP client and pull the current time.
+```c
+  timeClient.begin();
+  timeClient.update();
+```
+
+We can write text to the display using the following process.
+```c
+  display.clear();    // Clear screen.
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
+  display.setFont(ArialMT_Plain_24);
+  display.drawString(63, 0, timeOfDay); 
+  display.display(); // Render screen.
+```
+
+We can read the NTP time using the following code.
+```c
+timeClient.update();
+String timeOfDay = timeClient.getFormattedTime();
+Serial.println(timeOfDay);
+```
+
+## Exercise 4:
+### Reading the DHT22 temperature and humidity sensor.
+Include the DHT libraries.  Thes allow us to easily read the sensor.
+```c
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+```
+
+Create variables for the DHT sensor object and also for the temperature and humidity values.  This example assumes a DHT22 sensor type connected to the GPIO0 pin on the ESP8266.
+```c
+DHT dht(0, DHT22);
+float temperature;
+float humidity;
+```
+
+Initialize the sensor object in `setup()`.
+```c
+  dht.begin();
+```
+
+The read it periodically. It is recommended not to read the sensor faster than every 2 seconds.
+```c
+  humidity = dht.readHumidity();
+  // This reads the sensor in degrees F.
+  temperature = dht.readTemperature(true);
+  // This reads the sensor in degrees C.
+  temperature = dht.readTemperature();
+```
+  
+
 ## Exercise 5:
 ### Connecting to the Adafruit IO cloud platform.
 Include the Adafruit MQTT libraries.  These allow us to send packets of data to the Adafruit IO cloud service.
 ```c
-#include <ESP8266WiFi.h> // Should already have this from exercise 2.
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 ```
