@@ -38,8 +38,8 @@ float humidity;
 // Add Adafruit credentials
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883
-#define AIO_USERNAME    "YOUR_AIO_USERNAME"
-#define AIO_KEY         "YOUR_AIO_KEY"
+#define AIO_USERNAME    "rdsuel"
+#define AIO_KEY         "30b34a57bc9648e7baa02291e5ac454d"
 
 WiFiClient client;
 // Setup the MQTT client class by passing in the WiFi client and MQTT server and login details.
