@@ -1,5 +1,5 @@
 # IoT with the ESP8266
-
+The documentation below provides snippets of code that we will use for the various class exercises.  These are provided to simplify the coding process for participants that may be less comfortable with coding.
 
 ## Exercise 1:
 ### Scheduler
