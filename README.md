@@ -1,7 +1,7 @@
 # IoT with the ESP8266
 
 
-## Exercise 1 - 
+## Exercise 1:
 ### Scheduler
 The following code provides a basic architecture for running periodic "tasks".  In this example, the built-in ESP8266 LED toggles from a callback function (task) every 500 ms.
 ```c
