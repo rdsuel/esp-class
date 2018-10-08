@@ -38,8 +38,8 @@ float humidity;
 // Add Adafruit credentials
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883
-#define AIO_USERNAME    "YOUR AIO USERNAME"
-#define AIO_KEY         "YOUR AIO KEY"
+#define AIO_USERNAME    "YOUR_AIO_USERNAME"
+#define AIO_KEY         "YOUR_AIO_KEY"
 
 WiFiClient client;
 // Setup the MQTT client class by passing in the WiFi client and MQTT server and login details.
@@ -163,9 +163,15 @@ void DisplayTask()
 
 void SensorTask()
 {
-  humidity = dht.readHumidity();
   // Note: passing true returns temp in F instead of C.
-  temperature = dht.readTemperature(true);
+  float temp = dht.readTemperature(true);
+  float hum = dht.readHumidity();
+  // Only store the values if they are valid.
+  if (!isnan(temp) && !isnan(hum))
+  {
+    temperature = temp;
+    humidity = hum;
+  }
 }
 
 void CloudTask()
@@ -212,7 +218,7 @@ static Timer_t schedulerTable[] =
 {
   {0, 0, 500, &LedTask},
   {0, 0, 1000, &DisplayTask},
-  {0, 0, 5000, &SensorTask},
+  {0, 0, 2000, &SensorTask},
   {0, 0, 5000, &CloudTask}
 };
 
