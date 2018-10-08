@@ -1,8 +1,10 @@
 # IoT with the ESP8266
 The documentation below provides snippets of code that we will use for the various class exercises.  These are provided to simplify the coding process for participants that may be less comfortable with coding.
 
-The additional board manager URL is:
-https://adafruit.github.io/arduino-board-index/package_adafruit_index.json,http://arduino.esp8266.com/stable/package_esp8266com_index.json
+The following must be added to the `Additional Boards Manager URLs:` field in the Arduino application properties. This URL will allow us to install the ESP8266 board support package for the Arduino IDE.
+```
+http://arduino.esp8266.com/stable/package_esp8266com_index.json
+```
 
 ## Exercise 1:
 ### Scheduler
