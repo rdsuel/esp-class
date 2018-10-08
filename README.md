@@ -54,3 +54,63 @@ void loop()
   runScheduler();
 }
 ```
+
+## Exercise 5 Snippits
+### Connecting to Adafruit IO:
+Include the Adafruit MQTT libraries.  These allow us to send packets of data to the Adafruit IO cloud service.
+```c
+#include <ESP8266WiFi.h> // Should already have this from exercise 2.
+#include "Adafruit_MQTT.h"
+#include "Adafruit_MQTT_Client.h"
+```
+
+Add the following defines and fill in your username and key from the Adafruit IO system.
+```c
+#define AIO_SERVER      "io.adafruit.com"
+#define AIO_SERVERPORT  1883
+#define AIO_USERNAME    "YOUR AIO USERNAME"
+#define AIO_KEY         "YOUR AIO KEY"
+```
+
+Add the following variables, which point to your temperature and humidity feeds in Adafruit IO.
+```c
+
+WiFiClient client;
+Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
+Adafruit_MQTT_Publish temperatureFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temperature");
+Adafruit_MQTT_Publish humidityFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/humidity");
+```
+
+Finally, connect to the Adafruit IO system.
+```c
+void connectToAdafruit() {
+
+  Serial.print(F("Connecting to Adafruit IO... "));
+
+  int8_t ret;
+
+  while ((ret = mqtt.connect()) != 0)
+  {
+    switch (ret)
+    {
+      case 1: Serial.println(F("Wrong protocol")); break;
+      case 2: Serial.println(F("ID rejected")); break;
+      case 3: Serial.println(F("Server unavail")); break;
+      case 4: Serial.println(F("Bad user/pass")); break;
+      case 5: Serial.println(F("Not authed")); break;
+      case 6: Serial.println(F("Failed to subscribe")); break;
+      default: Serial.println(F("Connection failed")); break;
+    }
+
+    if (ret >= 0)
+    {
+      mqtt.disconnect();
+    }
+
+    Serial.println(F("Retrying connection..."));
+    delay(5000);
+  }
+
+  Serial.println(F("Adafruit IO Connected!"));
+}
+```
