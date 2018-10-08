@@ -236,3 +236,35 @@ void connectToAdafruit() {
   Serial.println(F("Adafruit IO Connected!"));
 }
 ```
+
+Use the following code snippet to periodically send feeds to Adafruit.  Don't send faster than 2 seconds for a free account.
+```c
+    if (! mqtt.ping(3))
+    {
+      Serial.println(F("Failed to reach the server"));
+      if (! mqtt.connected())
+      {
+        connectToAdafruit();
+      }
+    }
+
+    if (! temperatureFeed.publish(temperature))
+    {
+      Serial.println(F("Failed to publish temperature"));
+    }
+    else
+    {
+      Serial.print(temperature);
+      Serial.println(F(" F published!"));
+    }
+
+    if (! humidityFeed.publish(humidity))
+    {
+      Serial.println(F("Failed to publish humidity"));
+    }
+    else
+    {
+      Serial.print(humidity);
+      Serial.println(F("% published!"));
+    }  
+  ```
