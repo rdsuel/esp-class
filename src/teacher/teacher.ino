@@ -31,15 +31,15 @@ NTPClient timeClient(udp, "time.nist.gov", utc * 3600, 60000);
 
 // Exercise 4: Temp/Humidity Sensor
 DHT dht(0, DHT22);
-float humidity;
 float temperature;
+float humidity;
 
 // Exercise 5: Adafruit
 // Add Adafruit credentials
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883
-#define AIO_USERNAME    "rdsuel"
-#define AIO_KEY         "9ee103074b6548eea4c5e7ed722efaf5"
+#define AIO_USERNAME    "YOUR AIO USERNAME"
+#define AIO_KEY         "YOUR AIO KEY"
 
 WiFiClient client;
 // Setup the MQTT client class by passing in the WiFi client and MQTT server and login details.
@@ -128,40 +128,48 @@ void setup()
   connectToAdafruit();
 }
 
-int seconds = 0;
-void loop()
+void LedTask()
 {
-  // Exercise 1: Blink the on-board LED.
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(500);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(500);
+  int state = digitalRead(LED_BUILTIN);  // get the current state of GPIO1 pin
+  digitalWrite(LED_BUILTIN, !state);   
+}
 
-  // Exercise 3: OLED display and NTP time.
-  Serial.println(timeClient.getFormattedTime());
+void DisplayTask()
+{
   display.clear();
+
+  // Write the time of day.
+  timeClient.update();
+  String timeOfDay = timeClient.getFormattedTime();
   display.setTextAlignment(TEXT_ALIGN_CENTER);
   display.setFont(ArialMT_Plain_24);
-  display.drawString(63, 0, timeClient.getFormattedTime());
+  display.drawString(63, 0, timeOfDay);  
+  Serial.println(timeOfDay);
 
-  // Exercise 4: Temp/Humidity Sensor
-  humidity = dht.readHumidity();
-  temperature = dht.readTemperature(true);
+  // Write the temperature and humidity.
   // https://www.arduino.cc/en/Reference.StringConstructor
   String tempString = String(temperature, 1);
   String humidityString = String(humidity, 1);
   String sensorString = String(tempString + "F   " + humidityString + "%");
+  
   display.setTextAlignment(TEXT_ALIGN_CENTER);
   display.setFont(ArialMT_Plain_16);
   display.drawString(63, 31, sensorString);
-  Serial.println(sensorString);
-  display.display();
+  Serial.println(sensorString);  
 
-  // Exercise 5: Adafruit
-  if (seconds++ > 10)
-  {
-    seconds = 0;
-    
+  display.display();
+}
+
+
+void SensorTask()
+{
+  humidity = dht.readHumidity();
+  // Note: passing true returns temp in F instead of C.
+  temperature = dht.readTemperature(true);
+}
+
+void CloudTask()
+{
     if (! mqtt.ping(3))
     {
       Serial.println(F("Failed to reach the server"));
@@ -189,6 +197,44 @@ void loop()
     {
       Serial.print(humidity);
       Serial.println(F("% published!"));
+    }  
+}
+
+typedef struct
+{
+  unsigned long previousMillis;
+  unsigned long elapsedMillis;
+  unsigned long timeoutMillis;
+  void (*callback)();
+} Timer_t;
+
+static Timer_t schedulerTable[] = 
+{
+  {0, 0, 500, &LedTask},
+  {0, 0, 1000, &DisplayTask},
+  {0, 0, 5000, &SensorTask},
+  {0, 0, 5000, &CloudTask}
+};
+
+void runScheduler()
+{ 
+  // Run each timer in the scheduler table, and call 
+  for (int i = 0; i < sizeof(schedulerTable)/sizeof(Timer_t); i++)
+  {
+    // Note: millis() will overflow after ~50 days.  
+    unsigned long currentMillis = millis();
+    Timer_t *t = &schedulerTable[i];    
+    t->elapsedMillis += currentMillis - t->previousMillis;
+    t->previousMillis = currentMillis;
+    if (t->elapsedMillis >= t->timeoutMillis)
+    {
+      t->elapsedMillis = 0;
+      t->callback();
     }
   }
+}
+
+void loop()
+{  
+  runScheduler();
 }
