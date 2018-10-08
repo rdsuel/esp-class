@@ -171,13 +171,26 @@ Initialize the sensor object in `setup()`.
   dht.begin();
 ```
 
-The read it periodically. It is recommended not to read the sensor faster than every 2 seconds.
+The read it periodically. It is recommended not to read the sensor faster than every 2 seconds. Also, make sure the temp and humidity readings are not invalid (nan).
 ```c
-  humidity = dht.readHumidity();
-  // This reads the sensor in degrees F.
-  temperature = dht.readTemperature(true);
-  // This reads the sensor in degrees C.
-  temperature = dht.readTemperature();
+  float temp = dht.readTemperature(true);
+  float hum = dht.readHumidity();
+
+  if (!isnan(temp) && !isnan(hum))
+  {
+    temperature = temp;
+    humidity = hum;
+  }
+```
+
+Finally, update the display task to write the latest temperature and humiditt,
+```c
+  String tempString = String(temperature, 1);
+  String humidityString = String(humidity, 1);
+  String sensorString = String(tempString + "F     " + humidityString + "%");
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
+  display.setFont(ArialMT_Plain_16);
+  display.drawString(63, 31, sensorString);
 ```
 
 
