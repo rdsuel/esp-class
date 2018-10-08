@@ -1,6 +1,9 @@
 # IoT with the ESP8266
 The documentation below provides snippets of code that we will use for the various class exercises.  These are provided to simplify the coding process for participants that may be less comfortable with coding.
 
+The additional board manager URL is:
+https://adafruit.github.io/arduino-board-index/package_adafruit_index.json,http://arduino.esp8266.com/stable/package_esp8266com_index.json
+
 ## Exercise 1:
 ### Scheduler
 The following code provides a basic architecture for running periodic "tasks".  In this example, the built-in ESP8266 LED toggles from a callback function (task) every 500 ms.
@@ -25,15 +28,15 @@ typedef struct
   void (*callback)();
 } Timer_t;
 
-static Timer_t schedulerTable[] = 
+static Timer_t schedulerTable[] =
 {
   {0, 0, 500, &LedTask},
   // Add tasks here.
 };
 
 void runScheduler()
-{ 
-  // Run each timer in the scheduler table, and call 
+{
+  // Run each timer in the scheduler table, and call
   for (int i = 0; i < sizeof(schedulerTable)/sizeof(Timer_t); i++)
   {
     // Note: millis() will overflow after ~50 days.  
@@ -135,7 +138,7 @@ We can write text to the display using the following process.
   display.clear();    // Clear screen.
   display.setTextAlignment(TEXT_ALIGN_CENTER);
   display.setFont(ArialMT_Plain_24);
-  display.drawString(63, 0, timeOfDay); 
+  display.drawString(63, 0, timeOfDay);
   display.display(); // Render screen.
 ```
 
@@ -174,7 +177,7 @@ The read it periodically. It is recommended not to read the sensor faster than e
   // This reads the sensor in degrees C.
   temperature = dht.readTemperature();
 ```
-  
+
 
 ## Exercise 5:
 ### Connecting to the Adafruit IO cloud platform.
