@@ -183,7 +183,7 @@ The read it periodically. It is recommended not to read the sensor faster than e
   }
 ```
 
-Finally, update the display task to write the latest temperature and humiditt,
+Finally, update the display task to write the latest temperature and humidity.
 ```c
   String tempString = String(temperature, 1);
   String humidityString = String(humidity, 1);
