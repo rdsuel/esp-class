@@ -1,7 +1,7 @@
 # IoT with the ESP8266
 
 
-## Exercise 1 Snippits:
+## Exercise 1:
 ### Scheduler
 The following code provides a basic architecture for running periodic "tasks".  In this example, the built-in ESP8266 LED toggles from a callback function (task) every 500 ms.
 ```c
@@ -55,8 +55,8 @@ void loop()
 }
 ```
 
-## Exercise 5 Snippits
-### Connecting to Adafruit IO:
+## Exercise 5:
+### Connecting to the Adafruit IO cloud platform.
 Include the Adafruit MQTT libraries.  These allow us to send packets of data to the Adafruit IO cloud service.
 ```c
 #include <ESP8266WiFi.h> // Should already have this from exercise 2.
@@ -74,14 +74,13 @@ Add the following defines and fill in your username and key from the Adafruit IO
 
 Add the following variables, which point to your temperature and humidity feeds in Adafruit IO.
 ```c
-
 WiFiClient client;
 Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
 Adafruit_MQTT_Publish temperatureFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temperature");
 Adafruit_MQTT_Publish humidityFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/humidity");
 ```
 
-Finally, connect to the Adafruit IO system.
+Finally, connect to the Adafruit IO system with the following function.
 ```c
 void connectToAdafruit() {
 
