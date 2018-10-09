@@ -15,6 +15,14 @@ We need to tell the Arduino software where to search for board support packages 
 http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
 
+### Libraries
+Install the following libraries using the Arduino Library Manager: `Sketch -> Include Library -> Manage Libraries...`
+1. Search "ssd1306": Install - `ESP8266 and ESP32 Oled Driver ... by Daniel Eichhorn, Fabrice Weinberg`
+2. Search "dht": Install - `HDT sensor library by Adafruit`
+3. Search "adafruit unified sensor": Install - `Adafruit Unified Sensor by Adafruit`
+4. Search "ntp": Install - `NTPClient by Fabrice Weinberg`
+5. Search "mqtt": Install - `Adafruit MQTT Library by Adafruit`
+
 ## Exercise 1 - Blinky with a simple "scheduler"
 The following code provides a basic architecture for running periodic "tasks".  In this example, the built-in ESP8266 LED toggles from a callback function (task) every 500 ms. We will build on this architecture for the future exercises.
 ```c
