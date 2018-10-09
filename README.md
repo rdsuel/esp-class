@@ -1,5 +1,5 @@
 # IoT with the ESP8266
-The documentation below provides snippets of code that we will use for the various class exercises.  These are provided to simplify the coding process for participants that may be less comfortable with coding.
+The documentation below is an outline of the class, and provides code snippets that can easily be coppied/pasted into your code as we work through the exercises.  These are being provided to allow you to keep up with the material and hopefully get the most out of the class!
 
 ## Pre-Work
 The following tasks should be completed prior to class.
