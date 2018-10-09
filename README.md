@@ -14,6 +14,12 @@ We need to tell the Arduino software where to search for board support packages 
 ```
 http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
+![Image of board manager URL location](resources/setup_board_manager_url.png)
+
+### Device Configuration
+Plug your ESP8266 into your computer's USB port.  Then configure the device as shown here under the "Tools" menu of the Arduino IDE.
+
+![Image of device settings](resources/setup_device_configuration.png)
 
 ### Libraries
 Install the following libraries using the Arduino Library Manager: `Sketch -> Include Library -> Manage Libraries...`
@@ -117,7 +123,19 @@ Add the following code to your `setup()` function. It will connect to the networ
 
 
 ## Exercise 3 - Display Current Time
-The following includes will be needed to drive the display, and to read the current time from the online NTP (network time protocol) server.
+For this exercise, we need to wire the display to the ESP8266. Once wired, we can add the code to read the time from the NTP server and write it to the display.
+
+### Wire it up
+
+![ESP8266 Pins](resources/exercise3_esp.png)  ![Display Pins](resources/exercise3_display.png)
+
+ESP8266 Pin | Display Pin
+----------- | -------------
+GPIO5       | SDA
+GPIO4       | SCK
+3.3V        | VDD
+GND         | GND
+
 ### Includes
 ```c
 #include <Wire.h>
@@ -177,7 +195,17 @@ void DisplayTask()
 Congratulations, you now have a desktop clock that syncs with a government time server every minute!
 
 ## Exercise 4 - Read temperature and humidity using the DHT22
-Our clock would be so much better if it also displayed the current temperature and humidity. We can use the DHT22 sensor to do this!
+Our clock would be so much better if it also displayed the current temperature and humidity. We can use the DHT22 sensor to do this! First we need to wire up the sensor, then we will add the code to read it and display the temperature and humidity.
+
+### Wire it up
+![ESP8266 Pins](resources/exercise3_esp.png)  ![Display Pins](resources/exercise3_display.png)
+
+ESP8266 Pin | DHT22 Pin
+----------- | -------------
+GPIO0       | DAT
+3.3V        | VCC
+GND         | GND
+
 ### Includes
 ```c
 #include <Adafruit_Sensor.h>

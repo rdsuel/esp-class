@@ -2,7 +2,7 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 
-#define DHTPIN  4         // what pin we're connected to
+#define DHTPIN  0         // what pin we're connected to
 #define DHTTYPE DHT22     // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor
 
