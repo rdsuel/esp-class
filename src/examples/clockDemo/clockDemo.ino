@@ -7,7 +7,7 @@
 #include <DHT.h>
 #include <NTPClient.h>
 
-#define DHTPIN  4         // what pin we're connected to
+#define DHTPIN  0         // what pin we're connected to
 #define DHTTYPE DHT22     // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor
 
@@ -37,8 +37,8 @@ const unsigned char inactiveSymbol[] PROGMEM = {
     B00000000
 };
 
-const char* ssid     = "SSIDL";
-const char* password = "PASSWORD";
+const char* ssid     = "iot_class";
+const char* password = "password";
 
 int16_t utc = -4;
 
@@ -48,7 +48,7 @@ WiFiUDP udp;
 NTPClient timeClient(udp, "time.nist.gov", utc*3600, 60000);
  
 // Initialize the OLED display using Wire library
-SSD1306Wire  display(0x3c, 3, 1);
+SSD1306Wire  display(0x3c, 5, 4);
 OLEDDisplayUi ui ( &display );
 
 int hour = 0;
