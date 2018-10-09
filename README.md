@@ -134,8 +134,8 @@ GPIO4       | SCK
 3.3V        | VDD
 GND         | GND
 
-<p>
-These images show the pins used for this exercise on the ESP8266, and also on the display.
+<p>These images show the pins used for this exercise on the ESP8266, and also on the display.</p>
+
 <img width="25%" alt="ESP8266 Pins" src="resources/exercise3_esp.png"> <img width="25%" alt="Display Pins" src="resources/exercise3_display.png">
 
 Now let's add the code to make the display work ...
@@ -210,7 +210,8 @@ GPIO0       | DAT
 3.3V        | VCC
 GND         | GND
 
-<p>
+<p>These images show the pins used for this exercise on the ESP8266, and also on the DHT22 sensor.</p>
+
 <img width="25%" alt="ESP8266 Pins" src="resources/exercise4_esp.png"> <img width="15%" alt="DHT22 Pins" src="resources/exercise4_dht22.png">
 
 Now let's add the code to make the sensor work ...
