@@ -24,10 +24,15 @@ Plug your ESP8266 into your computer's USB port.  Then configure the device as s
 ### Libraries
 Install the following libraries using the Arduino Library Manager: `Sketch -> Include Library -> Manage Libraries...`
 1. Search "ssd1306": Install - `ESP8266 and ESP32 Oled Driver ... by Daniel Eichhorn, Fabrice Weinberg`
+   - Documentation: [Link](https://github.com/ThingPulse/esp8266-oled-ssd1306)
 2. Search "dht": Install - `HDT sensor library by Adafruit`
+   - Documentation: [Link](https://github.com/adafruit/DHT-sensor-library)
 3. Search "adafruit unified sensor": Install - `Adafruit Unified Sensor by Adafruit`
+   - Documentation: [Link](https://github.com/adafruit/Adafruit_Sensor)
 4. Search "ntp": Install - `NTPClient by Fabrice Weinberg`
+   - Documentation: [Link](https://github.com/arduino-libraries/NTPClient)
 5. Search "mqtt": Install - `Adafruit MQTT Library by Adafruit`
+   - Documentation: [Link](https://github.com/adafruit/Adafruit_MQTT_Library)
 
 ## Exercise 1 - Blinky with a simple "scheduler"
 The following code provides a basic architecture for running periodic "tasks".  In this example, the built-in ESP8266 LED toggles from a callback function (task) every 500 ms. We will build on this architecture for the future exercises.
