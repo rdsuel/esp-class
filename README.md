@@ -125,8 +125,7 @@ Add the following code to your `setup()` function. It will connect to the networ
 For this exercise, we need to wire the display to the ESP8266. Once wired, we can add the code to read the time from the NTP server and write it to the display.
 
 ### Wire it up
-
-<img width="25%" alt="ESP8266 Pins" src="resources/exercise3_esp.png"> <img width="25%" alt="Display Pins" src="resources/exercise3_display.png">
+Wire the ESP8266 pins to the display pins as defined in this table.
 
 ESP8266 Pin | Display Pin
 ----------- | -------------
@@ -134,6 +133,12 @@ GPIO5       | SDA
 GPIO4       | SCK
 3.3V        | VDD
 GND         | GND
+
+<p>
+These images show the pins used for this exercise on the ESP8266, and also on the display.
+<img width="25%" alt="ESP8266 Pins" src="resources/exercise3_esp.png"> <img width="25%" alt="Display Pins" src="resources/exercise3_display.png">
+
+Now let's add the code to make the display work ...
 
 ### Includes
 ```c
@@ -197,13 +202,18 @@ Congratulations, you now have a desktop clock that syncs with a government time 
 Our clock would be so much better if it also displayed the current temperature and humidity. We can use the DHT22 sensor to do this! First we need to wire up the sensor, then we will add the code to read it and display the temperature and humidity.
 
 ### Wire it up
-<img width="25%" alt="ESP8266 Pins" src="resources/exercise4_esp.png"> <img width="15%" alt="DHT22 Pins" src="resources/exercise4_dht22.png">
+Wire the ESP8266 pins to the display pins as defined in this table.
 
 ESP8266 Pin | DHT22 Pin
 ----------- | -------------
 GPIO0       | DAT
 3.3V        | VCC
 GND         | GND
+
+<p>
+<img width="25%" alt="ESP8266 Pins" src="resources/exercise4_esp.png"> <img width="15%" alt="DHT22 Pins" src="resources/exercise4_dht22.png">
+
+Now let's add the code to make the sensor work ...
 
 ### Includes
 ```c
