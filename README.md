@@ -10,7 +10,7 @@ The following tasks should be completed prior to class.
 
 ## Setup
 ### Board Manager URL
-We need to tell the Arduino software where to search for board support packages so we can add support for the ESP8266. Launch the Arduino software, open the preferences/properties window, and add the following link to the **Additional Boards Manager URLs:** field:
+We need to tell the Arduino software where to search for board support packages so we can add support for the ESP8266. Launch the Arduino software, open the Preferences window, and add the following link to the **Additional Boards Manager URLs** field shown in the red box of the image below:
 ```
 http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
