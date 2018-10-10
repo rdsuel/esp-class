@@ -21,6 +21,11 @@ Plug your ESP8266 into your computer's USB port.  Then configure the device as s
 
 <img width="25%" alt="Image of device settings" src="resources/setup_device_configuration.png">
 
+Board support package:
+
+https://geappliances-my.sharepoint.com/:u:/r/personal/paul_goodjohn_geappliances_com/Documents/packages.zip?csf=1&e=QtSS7U
+
+
 ### Libraries
 Install the following libraries using the Arduino Library Manager: `Sketch -> Include Library -> Manage Libraries...`
 1. Search "ssd1306": Install - `ESP8266 and ESP32 Oled Driver ... by Daniel Eichhorn, Fabrice Weinberg`
