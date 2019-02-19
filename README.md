@@ -16,15 +16,19 @@ http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
 <img width="50%" alt="Image of board manager URL location" src="resources/setup_board_manager_url.png">
 
+### Install ESP8266 Board Package
+Launch the "Boards Manager" from the `Tools -> Board: Arduino/Genuino Uno -> Boards Manager` menu item.  
+<img width="50%" alt="Image of board manager" src="resources/setup_board_manager.png">
+
+In the board manager, search for `ESP8266`.  Install the latest version of the package from the ESP8266 Community.
+
+Alternatively, you can download the board package files from here.  You will need to unzip and store this file where your Arduino installation keeps board packages.
+https://geappliances-my.sharepoint.com/:u:/r/personal/paul_goodjohn_geappliances_com/Documents/packages.zip?csf=1&e=QtSS7U
+
 ### Device Configuration
 Plug your ESP8266 into your computer's USB port.  Then configure the device as shown here under the "Tools" menu of the Arduino IDE.
 
 <img width="25%" alt="Image of device settings" src="resources/setup_device_configuration.png">
-
-Board support package:
-
-https://geappliances-my.sharepoint.com/:u:/r/personal/paul_goodjohn_geappliances_com/Documents/packages.zip?csf=1&e=QtSS7U
-
 
 ### Libraries
 Install the following libraries using the Arduino Library Manager: `Sketch -> Include Library -> Manage Libraries...`
