@@ -28,7 +28,7 @@ https://geappliances-my.sharepoint.com/:u:/r/personal/paul_goodjohn_geappliances
 ### Device Configuration
 Plug your ESP8266 into your computer's USB port.  Then configure the device as shown here under the "Tools" menu of the Arduino IDE.
 
-<img width="25%" alt="Image of device settings" src="resources/setup_device_configuration.png">
+<img width="50%" alt="Image of device settings" src="resources/setup_device_configuration.png">
 
 ### Libraries
 Install the following libraries using the Arduino Library Manager: `Sketch -> Include Library -> Manage Libraries...`
