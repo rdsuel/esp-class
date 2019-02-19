@@ -14,15 +14,15 @@ We need to tell the Arduino software where to search for board support packages 
 ```
 http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
-<img width="50%" alt="Image of board manager URL location" src="resources/setup_board_manager_url.png">
+<img width="75%" alt="Image of board manager URL location" src="resources/setup_board_manager_url.png">
 
 ### Install ESP8266 Board Package
 Launch the "Boards Manager" from the `Tools -> Board: Arduino/Genuino Uno -> Boards Manager` menu item.  
-<img width="50%" alt="Image of board manager" src="resources/setup_board_manager.png">
+<img width="75%" alt="Image of board manager" src="resources/setup_board_manager.png">
 
 In the board manager, search for `ESP8266`.  Install the latest version of the package from the ESP8266 Community.
 
-Alternatively, you can download the board package files from here.  You will need to unzip and store this file where your Arduino installation keeps board packages.
+Alternatively, you can download the board package files from here.  You will need to unzip and store this file where your Arduino installation keeps board packages.<br>
 https://geappliances-my.sharepoint.com/:u:/r/personal/paul_goodjohn_geappliances_com/Documents/packages.zip?csf=1&e=QtSS7U
 
 ### Device Configuration
