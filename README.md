@@ -14,23 +14,27 @@ We need to tell the Arduino software where to search for board support packages 
 ```
 http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
-<img width="50%" alt="Image of board manager URL location" src="resources/setup_board_manager_url.png">
+<img width="75%" alt="Image of board manager URL location" src="resources/setup_board_manager_url.png">
+
+### Install ESP8266 Board Package
+Launch the "Boards Manager" from the `Tools -> Board: Arduino/Genuino Uno -> Boards Manager` menu item.  
+<img width="75%" alt="Image of board manager" src="resources/setup_board_manager.png">
+
+In the board manager, search for `ESP8266`.  Install the latest version of the package from the ESP8266 Community.
+
+Alternatively, you can download the board package files from here.  You will need to unzip and store this file where your Arduino installation keeps board packages.<br>
+https://geappliances-my.sharepoint.com/:u:/r/personal/paul_goodjohn_geappliances_com/Documents/packages.zip?csf=1&e=QtSS7U
 
 ### Device Configuration
 Plug your ESP8266 into your computer's USB port.  Then configure the device as shown here under the "Tools" menu of the Arduino IDE.
 
-<img width="25%" alt="Image of device settings" src="resources/setup_device_configuration.png">
-
-Board support package:
-
-https://geappliances-my.sharepoint.com/:u:/r/personal/paul_goodjohn_geappliances_com/Documents/packages.zip?csf=1&e=QtSS7U
-
+<img width="50%" alt="Image of device settings" src="resources/setup_device_configuration.png">
 
 ### Libraries
 Install the following libraries using the Arduino Library Manager: `Sketch -> Include Library -> Manage Libraries...`
 1. Search "ssd1306": Install - `ESP8266 and ESP32 Oled Driver ... by Daniel Eichhorn, Fabrice Weinberg`
    - Documentation: [Link](https://github.com/ThingPulse/esp8266-oled-ssd1306)
-2. Search "dht": Install - `HDT sensor library by Adafruit`
+2. Search "dht": Install - `DHT sensor library by Adafruit`
    - Documentation: [Link](https://github.com/adafruit/DHT-sensor-library)
 3. Search "adafruit unified sensor": Install - `Adafruit Unified Sensor by Adafruit`
    - Documentation: [Link](https://github.com/adafruit/Adafruit_Sensor)
