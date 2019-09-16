@@ -210,6 +210,15 @@ void DisplayTask()
 }
 ```
 
+Update the schedulerTable to look like this:
+```c
+static Timer_t schedulerTable[] =
+{
+  {0, 0, 500, &LedTask},
+  {0, 0, 1000, &DisplayTask},
+  // Add tasks here.
+};
+```
 Congratulations, you now have a desktop clock that syncs with a government time server every minute!
 
 ## Exercise 4 - Read temperature and humidity using the DHT22
